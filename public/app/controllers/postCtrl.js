@@ -70,7 +70,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 
 		  		}
 			});
-			
+
 		Users.getAllUsers()
 			.success(function(users){
 				$scope.usersList=users;
@@ -240,6 +240,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	    };
 
 		$scope.savePost=function(){
+			
 
 			if($scope.post.body!=""){
 				Posts.update($routeParams.id,$scope.post)
