@@ -123,14 +123,7 @@ module.exports = function(app,express){
 					res.json(users);
 			});	
 		});*/
-	apiRouter.route('/users')
-		.get(function(req,res){
-				console.log("calling today2");
-				User.find({}).select('username').sort('username').exec(function(err,users) {
-					if (err) res.send(err);
-					res.json(users);
-			});	
-		});
+
 
 /*	apiRouter.route('/users/:user_id')
 		.get(function(req,res){
@@ -162,7 +155,17 @@ module.exports = function(app,express){
 				});
 		});	
 */
-	//route for updating user
+	//route for getting all username
+	apiRouter.route('/users')
+		.get(function(req,res){
+				console.log("calling today2");
+				User.find({}).select('username').sort('username').exec(function(err,users) {
+					if (err) res.send(err);
+					res.json(users);
+			});	
+		});
+
+	//route for getting and updating single user
 	apiRouter.route('/users/:user_id')
 		.get(function(req,res){
 			User.findById(req.params.user_id,function(err,user){

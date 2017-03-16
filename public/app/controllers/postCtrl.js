@@ -57,9 +57,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 		$scope.posts=[];
 		$scope.options=[];
 		$scope.options.push({label:"All",value:"all"});
-		$scope.numberOfPages=function(){
-			return Math.ceil($scope.posts.length/$scope.pageSize);                
-		}
+
 		Posts.getPopularPosts()
 			.success(function(popularPosts){
 				for (var i = 0; i < popularPosts.length; i++) {
@@ -72,6 +70,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 
 		  		}
 			});
+			
 		Users.getAllUsers()
 			.success(function(users){
 				$scope.usersList=users;

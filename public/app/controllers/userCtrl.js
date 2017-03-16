@@ -17,23 +17,18 @@ angular.module('userCtrl',['userService'])
 
 		.controller('editUserController',function($rootScope,$scope,Users){
 			$scope.user={};
-			/*$scope.user={
-				name:$rootScope.userDetails.name,
-				username:$rootScope.userDetails.username,
-				password:''
-			};*/
+
 			Users.getUser($rootScope.userDetails._id)
 				.success(function(userData){
 					$scope.user.name=userData.name;
 					$scope.user.username=userData.username;
 					$scope.password="";
 				});
+
 			$scope.saveUser =function(){
 				Users.update($rootScope.userDetails._id,$scope.user)
 						.success(function(data){
 							console.log(data)
-							$rootScope.userDetails.name=data.updatedname;
-							console.log($scope.user)
 							$scope.message = data.message;
 						});
 			};
