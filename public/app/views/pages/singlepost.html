@@ -1,0 +1,56 @@
+<div class="row">
+<br />
+<div class="panel panel-default">
+ <div class="panel-body">
+ <div id="post-head">
+    <h1>{{post.title}}</h1>
+    <h4><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><small>{{post.postedBy}}</small></h4>
+    <hr />
+ </div>
+<p><span class="glyphicon glyphicon-time"></span> Posted on {{post.postedOn | date:yyyy/mm/dd}}</p>
+<hr />
+ <div id="post-img">
+<img style="height:300px;width:100%" class="img-responsive" src="{{post.uploadedAt}}" alt="image">
+<hr />
+</div>
+ <div id="post-body">
+<p ng-bind-html="post.body"></p>
+<hr />        
+</div>
+<div id="post-comments">
+<h3>Comments</h3>
+<hr />
+<!-- Blog Comments -->
+<div ng-repeat="comment in post.comments | orderBy:'comment.date':true | limitTo:pageSize">
+    <div class="media">
+        <a class="pull-left" href="#">
+            <img class="media-object" src="http://placehold.it/64x64" alt="">
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">{{comment.commentedBy}}
+                <small>{{comment.date | date:yyyy/mm/dd}}</small>
+            </h4>
+            {{comment.body}}
+        </div>
+    </div>
+    <br />
+</div>
+<a href=""  ng-click="pageSize=post.comments.length" ng-hide="post.comments.length<=pageSize || pageSize==post.comments.length">All comments <span class="glyphicon glyphicon-circle-arrow-down faa-vertical animated"></span></a>
+<a href="" ng-click="pageSize=5" ng-hide="post.comments.length==0 || pageSize==5" >Recent Comments <span class="glyphicon glyphicon-circle-arrow-up faa-vertical animated"></span></a>
+</div>
+<!-- Comments Form -->
+<div id="write-comment">
+<div class="well">
+    <h4>Leave a Comment:</h4>
+        <form role="form" ng-submit="postComment()">
+        <div class="form-group">
+            <textarea class="form-control" rows="3" placeholder="comment" ng-model="comment.body" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" >Comment</button>
+    </form>
+</div>
+<hr />
+</div>
+</div>
+</div>
+</div>

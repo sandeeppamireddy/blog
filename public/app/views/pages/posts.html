@@ -1,0 +1,61 @@
+  <h3>Top 5 posts</h3>
+  <div style="height: 305px">
+      <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+        <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+          <img ng-src="{{slide.image}}" style="margin:auto;width:400px;">
+          <div class="carousel-caption">
+            <h4># {{slide.id + 1}}</h4>
+            <a href="/posts/{{slide.post_id}}" style="color:white;"><p>{{slide.text}}</p></a>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+          <h4>Posts</h4>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="input-group pull-right drpdwn" style="width:250px;">
+            <span class="input-group-addon" style=""><span class="glyphicon glyphicon-user" style="margin-right:5px;"></span><strong>Posts by</strong></span>
+            <select class="form-control input-md" ng-model="selected" ng-options="o.label for o in options" ng-change="valueChanged(selected)">
+              <option style="display:none" value="">Select Author</option>
+            </select>
+        </div>
+      </div>
+      <div class="row">
+        <div ng-repeat="post in filteredPosts ">
+          <div class="panel panel-default customStyle">
+            <div class="panel-body">
+            <a href="/posts/{{post._id}}"><h3 class="text-info">{{post.title}}</h3></a>
+            <h4><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><small>{{post.postedBy}}</small></h4>
+            <p style="float:right;"><span class="glyphicon glyphicon-time"></span> {{post.postedOn | date: yyyy/mm/dd}}</p>
+            <hr />
+            <a href="/posts/{{post._id}}"><img src="{{post.uploadedAt}}" alt="img" height="100" width="200" style="float:left;margin-right:10px;margin-bottom:10px;" ></a>
+            <p ng-bind-html="post.body | limitTo:250"></p>
+            </div>
+            <div class="panel-footer">
+                <p><span class="fa fa-comment"></span>
+                {{post.comments.length}}
+            <span class="fa fa-eye" style="margin-left:8px;"></span>	 			
+                        {{post.views}}
+            <a class="btn btn-primary" id="readMoreBtn" href="/posts/{{post._id}}" style="float:right;background-color:#4CAF50;border-color:#4CAF50;">Read More <span class="glyphicon glyphicon-chevron-right faa-passing animated"></span></a>
+            </p>
+            </div>
+      </div>
+      </div>
+
+    </div>
+    </div>
+    <div align="center">
+    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-md" boundary-links="true" num-pages="numPages" items-per-page="numPostsPerPage" ng-change="pageChanged()"></ul>
+</div>
+  </div>
+  
+
+
+
+
+
+
