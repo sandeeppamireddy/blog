@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Aurum Blog</title>	
+		<base href="/">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="styleSheet" href="libs/angular-ui-grid/ui-grid.min.css"/>
+
+		<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/libs/font-awesome-animation/dist/font-awesome-animation.min.css">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.min.js"></script>
+		<script src="libs/angular-ui-grid/ui-grid.min.js"></script>
+
+		<link rel='stylesheet' href='libs/textAngular/dist/textAngular.css'>
+		<script src='libs/textAngular/dist/textAngular-rangy.min.js'></script>
+		<script src='libs/textAngular/dist/textAngular-sanitize.min.js'></script>
+		<script src='libs/textAngular/dist/textAngular.min.js'></script>
+		<script src='libs/angular-bootstrap/ui-bootstrap.min.js'></script>
+		<script src='libs/angular-bootstrap/ui-bootstrap-tpls.min.js'></script>
+		<script src="libs/ng-file-upload-shim/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+		<script src="libs/ng-file-upload/ng-file-upload.min.js"></script>
+		<script  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  		crossorigin="anonymous"></script>
+
+		<!--controllers -->
+		<script src="app/controllers/mainCtrl.js"></script>
+		<script src="app/controllers/postCtrl.js"></script>
+		<script src="app/controllers/userCtrl.js"></script>
+
+
+
+
+		<!--services -->
+		<script src="app/services/authService.js"></script>
+		<script src="app/services/postService.js"></script>
+		<script src="app/services/userService.js"></script>
+
+
+		<!--angular app files -->
+		<script src="app/app.routes.js"></script>
+		<script src="app/app.js"></script>
+		<script>
+			$(document).ready(function(){
+			    
+			    //Check to see if the window is top if not then display button
+			    $(window).scroll(function(){
+			        if ($(this).scrollTop() > 100) {
+			            $('.scrollToTop').fadeIn();
+			        } else {
+			            $('.scrollToTop').fadeOut();
+			        }
+			    });
+			    
+			    //Click event to scroll to top
+			    $('.scrollToTop').click(function(){
+			        $('html, body').animate({scrollTop : 0},800);
+			        return false;
+			    });
+			    
+			});
+		
+/*			$(document).ready(function(){
+			     $(window).scroll(function () {
+			            if ($(this).scrollTop() > 50) {
+			                $('#back-to-top').fadeIn();
+			            } else {
+			                $('#back-to-top').fadeOut();
+			            }
+			        });
+			        // scroll body to 0px on click
+			        $('#back-to-top').click(function () {
+			            $('#back-to-top').tooltip('hide');
+			            $('body,html').animate({
+			                scrollTop: 0
+			            }, 800);
+			            return false;
+			        });
+			        
+			        $('#back-to-top').tooltip('show');
+
+			});
+*/	</script>
+
+	</head>
+	<body ng-app="blogApp">
+		 <div ng-controller="mainController as main">
+		 <nav class="navbar navbar-default navbar-fixed-top bg-primary"  ng-if="main.loggedIn">
+		  <div class="container-fluid" >
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="http://auruminfosol.com/" target="_blank">
+		        <img alt="Brand" src="assets/img/logo.svg"  height="40" width="150">
+		      </a>
+		    </div>
+		    <div class="collapse navbar-collapse" id="myNavbar">
+		      <ul class="nav navbar-nav">
+		            <li><a href="/">Posts</a></li>
+		            <li><a href="/manageposts">Manage Posts</a></li>
+		            <li><a href="/newpost">Create Post</a></li>
+		      </ul>
+		      <ul class="nav navbar-nav navbar-right">
+		      	<li><a href="/edituser"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span>{{userDetails.username}}</a></li>
+		        <li><a href="/#" ng-click="main.doLogout()"><span class="glyphicon glyphicon-log-out" style="margin-right:8px;"></span>Logout</a></li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>	
+		</div>
+		<div class="container">    
+			<div ng-view></div>
+		</div>
+	</body>
+	<a href="#" class="scrollToTop"><img src="assets/img/arrow_up.png"></a>
+	
+<!--  <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+ -->		
+</html>
