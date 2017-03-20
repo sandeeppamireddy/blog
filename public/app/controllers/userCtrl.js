@@ -2,6 +2,7 @@ angular.module('userCtrl',['userService','ngSanitize', 'ui.bootstrap'])
 		.controller('createUserController',function($rootScope,$scope,$location,Users,Upload){
 			var vm=this;
 			vm.user={};
+			$rootScope.pageLoading = false;
 			vm.user.profilePic="assets/img/default_profile_pic.png";
 			vm.doSignUp=function(){
 				Users.register(vm.user)
