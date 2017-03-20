@@ -20,8 +20,12 @@ angular.module('userCtrl',['userService','ngSanitize', 'ui.bootstrap'])
 		.controller('editUserController',function($rootScope,$scope,Users,Upload){
 			$scope.user={};
 			$scope.profilePic="";
+			$rootScope.$on('$routeChangeStart',function(){									
+				$rootScope.pageLoading = true;
+		    });
 			Users.getUser($rootScope.userDetails._id)
 				.success(function(userData){
+					$rootScope.pageLoading = false;
 					$scope.user.firstname=userData.firstname;
 					$scope.user.lastname=userData.lastname;
 					$scope.user.email=userData.email;
