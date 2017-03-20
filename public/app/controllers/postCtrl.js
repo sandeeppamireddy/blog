@@ -56,7 +56,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 		$scope.posts=[];
 		$scope.options=[];
 		$scope.options.push({label:"All",value:"all"});
-
+		$rootScope.profilePic=$rootScope.userDetails.profilePic;
 		Posts.getPopularPosts()
 			.success(function(popularPosts){
 				for (var i = 0; i < popularPosts.length; i++) {
@@ -117,7 +117,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 				    $scope.filteredPosts = $scope.posts.slice(begin, end);
 			  };
 		//
-		
+
   	})
 
 	.controller('getIndvdlPostsController',function($rootScope,$scope,$routeParams,Posts){		
@@ -145,7 +145,6 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	.controller('managePostController',function($rootScope,$scope,Posts,$filter,$uibModal){
 	   $scope.posts={};
 	   $scope.isAdmin=false;
-
 	   //grid configuration
 	   $scope.gridOptions = { 
 	   	paginationPageSizes: [10,20,30], 
@@ -256,7 +255,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
                 }).then(function (resp) { //upload function returns a promise
 	                if(resp.data.error_code === 0){ //validate success
 						$scope.post.uploadedAt='uploads/'+resp.data.modifiedName;//storing timestamped file name
-	                    console.log('Success' + resp.config.data.file.name + ' uploaded. Response: ');
+	                    //console.log('Success' + resp.config.data.file.name + ' uploaded. Response: ');
 	                    $scope.savePost();
 	                } else {
 	                    console.log('an error occured');
@@ -276,7 +275,6 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 					$scope.alerts = [
 						{ type: 'success', msg: $scope.message }
 					];
-
 				});
 			}
 			else{
@@ -284,7 +282,6 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 				$scope.alerts = [
 					{ type: 'danger', msg: $scope.message }
 				];
-
 			}	
 		};
 		$scope.closeAlert = function(index) {

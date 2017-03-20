@@ -1,6 +1,5 @@
 angular.module('mainCtrl',[])
 		.controller('mainController',function($rootScope,$location,Auth){
-			$rootScope.profilepic='';
 			var vm = this;
 			vm.loggedIn = Auth.isLoggedIn();
 			$rootScope.$on('$routeChangeStart',function(){

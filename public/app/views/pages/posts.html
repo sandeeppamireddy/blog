@@ -2,7 +2,7 @@
   <div style="height: 305px">
       <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
         <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-          <img ng-src="{{slide.image}}" style="margin:auto;width:440px;height:270px;">
+          <img ng-src="{{slide.image}}" style="margin:auto;width:650px;height:270px;">
           <div class="carousel-caption">
             <h4># {{slide.id + 1}}</h4>
             <a href="/posts/{{slide.post_id}}" style="color:white;"><p>{{slide.text}}</p></a>

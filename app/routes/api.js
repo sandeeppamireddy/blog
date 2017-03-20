@@ -194,7 +194,6 @@ module.exports = function(app,express){
  		 	Post.find({status:"Approved"}).sort('-views').limit(5).exec(function(err, popularPosts) {
 				if (err) res.send(err);
 				res.json(popularPosts);
-
 			});
  		});
     // route for fetching approved posts
