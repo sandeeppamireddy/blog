@@ -1,6 +1,8 @@
 angular.module('postCtrl',['postService','textAngular','userService','ngSanitize', 'ui.bootstrap'])
 	.controller('createPostController',function($rootScope,$scope,Posts,Upload){
 		$scope.type="create";
+										
+			$rootScope.pageLoading = false;
 		$scope.upload = function (file_name) {
 			if(file_name){
 	             Upload.upload({
@@ -48,6 +50,9 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	})
 
 	.controller('getAllPostsController',function($rootScope,$scope,Posts,Users){	
+				$rootScope.$on('$routeChangeStart',function(){									
+			$rootScope.pageLoading = true;
+		});
 		$scope.myInterval = 5000;
 		$scope.noWrapSlides = false;
 		$scope.active = 0;
@@ -59,6 +64,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 		$rootScope.profilePic=$rootScope.userDetails.profilePic;
 		Posts.getPopularPosts()
 			.success(function(popularPosts){
+				$rootScope.pageLoading = false;
 				for (var i = 0; i < popularPosts.length; i++) {
 		   			slides.push({
 		   				post_id:popularPosts[i]._id,
@@ -72,6 +78,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 
 		Users.getAllUsers()
 			.success(function(users){
+				$rootScope.pageLoading = false;
 				$scope.usersList=users;
 				for(var i=0;i<$scope.usersList.length;i++){
 					$scope.options.push({label:$scope.usersList[i].username,value:$scope.usersList[i].username});
@@ -79,6 +86,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 			});
 		Posts.getApprovedPosts()
 			.success(function(blogposts){
+				$rootScope.pageLoading = false;
 				$scope.posts = blogposts;
 				$scope.totalItems = $scope.posts.length;
 				$scope.currentPage = 1;
@@ -90,6 +98,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 				console.log("displaying all posts")
 				Posts.getApprovedPosts()
 					.success(function(blogposts){
+						$rootScope.pageLoading = false;
 						$scope.posts = blogposts;
 						$scope.totalItems = $scope.posts.length;
 						$scope.currentPage = 1;
@@ -100,6 +109,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 				console.log("displaying posts created by selected user")
 				Posts.getUserPosts(selected.value)
 					.success(function(data){
+						$rootScope.pageLoading = false;
 						$scope.posts=data;
 						$scope.totalItems = $scope.posts.length;
 						$scope.currentPage = 1;
@@ -120,11 +130,15 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 
   	})
 
-	.controller('getIndvdlPostsController',function($rootScope,$scope,$routeParams,Posts){		
+	.controller('getIndvdlPostsController',function($rootScope,$scope,$routeParams,Posts){	
+	$rootScope.$on('$routeChangeStart',function(){									
+			$rootScope.pageLoading = true;
+		});	
 		$scope.comment={};
 		$scope.pageSize = 5;
 		Posts.getPost($routeParams.post_id)
 				.success(function(data){
+					$rootScope.pageLoading = false;
 					$scope.post=data;
 					Posts.IncrementViews($routeParams.post_id)
 						.success(function(data){
@@ -143,6 +157,9 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	})
 
 	.controller('managePostController',function($rootScope,$scope,Posts,$filter,$uibModal){
+		$rootScope.$on('$routeChangeStart',function(){									
+			$rootScope.pageLoading = true;
+		});
 	   $scope.posts={};
 	   $scope.isAdmin=false;
 	   //grid configuration
@@ -177,6 +194,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 			$scope.isAdmin=true;
 			Posts.getAll()
 				.success(function(blogposts){
+					$rootScope.pageLoading = false;
 					$scope.posts = blogposts;								 
 					$scope.gridOptions.data=$scope.posts;
 				});
@@ -186,6 +204,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 		else{
 			Posts.getUserPosts($rootScope.userDetails.username)
 				.success(function(data){
+					$rootScope.pageLoading = false;
 					$scope.posts=data;
 					$scope.gridOptions.data=$scope.posts;
 					});
@@ -241,7 +260,8 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	  };
 	})
 
-	.controller('editPostController',function($scope,$routeParams,Posts,Upload){
+	.controller('editPostController',function($rootScope,$scope,$routeParams,Posts,Upload){
+		$rootScope.pageLoading = false;
 		$scope.type="edit";
 		Posts.getPost($routeParams.id)
 			.success(function(data){

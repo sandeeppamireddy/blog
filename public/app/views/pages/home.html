@@ -1,0 +1,13 @@
+<div class="jumbotron text-center">
+		<h1>Welcome to Aurum Blog</h1>
+
+		<div ng-if="!login.loggedIn">
+				<p>Login to see the posts</p>
+				<a href="/login" class="btn btn-primary">Login</a>
+		</div>
+
+		<div ng-if="login.loggedIn">
+				<p>Manage your users</p>
+				<a href="/posts" class="btn btn-primary">View Posts</a>
+		</div>
+</div>

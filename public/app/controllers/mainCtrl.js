@@ -1,5 +1,6 @@
 angular.module('mainCtrl',[])
 		.controller('mainController',function($rootScope,$location,Auth){
+			$rootScope.pageLoading  = false;
 			var vm = this;
 			vm.loggedIn = Auth.isLoggedIn();
 			$rootScope.$on('$routeChangeStart',function(){
@@ -16,7 +17,7 @@ angular.module('mainCtrl',[])
 					.success(function(data){
 						vm.processing=false;
 						if(data.success){
-							$location.path('/');
+							$location.path('/posts');
 						}
 						
 						else

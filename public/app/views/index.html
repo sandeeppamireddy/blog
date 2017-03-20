@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="assets/css/style.css">
 		<link rel="styleSheet" href="libs/angular-ui-grid/ui-grid.min.css"/>
+		
+
 
 		<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/libs/font-awesome-animation/dist/font-awesome-animation.min.css">
@@ -27,6 +29,8 @@
 		<script  src="https://code.jquery.com/jquery-3.1.1.min.js"
 		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   		crossorigin="anonymous"></script>
+  		<link rel="stylesheet" href="libs/angular-spinkit/build/angular-spinkit.min.css">
+		<script src="libs/angular-spinkit/build/angular-spinkit.min.js"></script>
 
 		<!--controllers -->
 		<script src="app/controllers/mainCtrl.js"></script>
@@ -70,7 +74,7 @@
 	</head>
 	<body ng-app="blogApp" style="height:400px;">
 		 <div ng-controller="mainController as main">
-		 <nav class="navbar navbar-default navbar-fixed-top bg-primary"  ng-if="main.loggedIn">
+		 <nav class="navbar navbar-default navbar-fixed-top bg-primary"  ng-show="main.loggedIn">
 		  <div class="container-fluid" >
 		    <div class="navbar-header">
 		      <a class="navbar-brand" href="http://auruminfosol.com/" target="_blank">
@@ -79,7 +83,7 @@
 		    </div>
 		    <div class="collapse navbar-collapse" id="myNavbar">
 		      <ul class="nav navbar-nav">
-		            <li><a href="/">Posts</a></li>
+		            <li><a href="/posts">Posts</a></li>
 		            <li><a href="/manageposts">Manage Posts</a></li>
 		            <li><a href="/newpost">Create Post</a></li>
 		      </ul>
@@ -91,8 +95,9 @@
 		  </div>
 		</nav>	
 		</div>
-		<div class="container">    
-			<div ng-view></div>
+		<div class="container"> 
+		<div ng-show="pageLoading"><circle-spinner></circle-spinner></div>
+				<div ng-show="!pageLoading"><div ng-view></div></div>   
 		</div>
 		<a href="#" class="scrollToTop"><img src="assets/img/arrow_up.png"></a>
 	</body>	

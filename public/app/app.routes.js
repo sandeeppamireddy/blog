@@ -1,8 +1,13 @@
 angular.module('app.routes',['ngRoute'])
 		.config(function($routeProvider,$locationProvider){
 			$routeProvider
+				.when('/posts', {
+					templateUrl : 'app/views/pages/posts.html',
+					controller   : 'getAllPostsController'
+				})
+
 				.when('/', {
-					templateUrl : 'app/views/pages/login.html',
+					templateUrl : 'app/views/pages/home.html',
 					controller : 'mainController',
 					controllerAs: 'login'
 				})
@@ -10,8 +15,10 @@ angular.module('app.routes',['ngRoute'])
 				.when('/login', {
 					templateUrl : 'app/views/pages/login.html',
 					controller : 'mainController',
-					controllerAs: 'login'
+					controllerAs: 'login',
+					abstract: false
 				})
+
 				.when('/register', {
 					templateUrl : 'app/views/pages/register.html',
 					controller :  'createUserController',
