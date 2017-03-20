@@ -1,42 +1,18 @@
-<!-- <div class="page-header">
-	<h1>Profile</h1>
-</div>
-<form class="form-horizontal" ng-submit="saveUser()">
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Name</label> 
-		<div class="col-sm-6">
-			<input type="text"	class="form-control" ng-model="user.name">
-		</div>	
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Username</label> 
-		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="user.username">
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Password</label>
-		<div class="col-sm-6">
-			<input type="password" class="form-control" ng-model="user.password">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-6">
-			<button type="submit" class="btn btn-success btn-lg btn-block">Update </button>
-		</div>
-	</div>
-</form> -->
 <div class="container" style="padding-top: 20px;">
+<div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type)" close="closeAlert($index)">{{alert.msg}}</div>
   <h1 class="page-header">Edit Profile</h1>
   <div class="row">
     <!-- left column -->
+    <form ng-submit="upload(profilePic)">
     <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="text-center">
-        <img src="assets/img/img_avatar2.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <img src="{{user.profilePic}}" class="avatar img-circle img-thumbnail" alt="avatar">
         <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block well well-sm">
+        <input type="file" class="text-center center-block well well-sm" ngf-select name="file_name" id="file_name" ng-model="profilePic" required>
+        <input type="submit" class="btn btn-primary" value="Upload">
       </div>
     </div>
+    </form>
     <!-- edit form column -->
     <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
       <h3>Personal info</h3>
@@ -44,31 +20,31 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">First name:</label>
           <div class="col-lg-8">
-            <input class="form-control"  type="text" ng-model="user.name">
+            <input class="form-control"  type="text" ng-model="user.firstname">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Last name:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="" type="text">
+            <input class="form-control" value="" type="text" ng-model="user.lastname">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Email:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="admin@auruminfosol.com" type="text">
+            <input class="form-control" placeholder="admin@auruminfosol.com" type="text" ng-model="user.email">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Username:</label>
           <div class="col-md-8">
-            <input class="form-control"  type="text" ng-model="user.username" readonly>
+            <input class="form-control"  type="text" ng-model="user.username" ng-model="user.username" readonly>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Password:</label>
           <div class="col-md-8">
-            <input class="form-control" value="11111122333" type="password" ng-model="user.password">
+            <input class="form-control" value="" type="password" ng-model="user.password" ng-model="user.password">
           </div>
         </div>
         <div class="form-group">

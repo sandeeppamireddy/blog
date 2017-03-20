@@ -8,7 +8,7 @@ angular.module('postService',[])
 			return $http.post('/api/createBlogpost',post);
 		};
 		postFactory.getPopularPosts=function(){
-			return $http.get('/api/getPopularPosts')
+			return $http.get('/api/getPopularPosts');
 		}
 		postFactory.getApprovedPosts=function(){
 			return $http.get('/api/getApprovedBlogposts');

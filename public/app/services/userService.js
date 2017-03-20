@@ -1,6 +1,9 @@
 angular.module('userService',[])
 	.factory('Users',function($http){
 		var userFactory={};
+		userFactory.upload=function(){                
+            return $http.post('/api/upload');
+        };
 		userFactory.register=function(user){
 			return $http.post('/api/register',user)
 		};

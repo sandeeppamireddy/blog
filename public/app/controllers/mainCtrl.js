@@ -1,5 +1,6 @@
 angular.module('mainCtrl',[])
 		.controller('mainController',function($rootScope,$location,Auth){
+			$rootScope.profilepic='';
 			var vm = this;
 			vm.loggedIn = Auth.isLoggedIn();
 			$rootScope.$on('$routeChangeStart',function(){
@@ -12,7 +13,6 @@ angular.module('mainCtrl',[])
 			vm.doLogin = function(){
 				vm.processing =true;
 				vm.error='';
-
 				Auth.login(vm.loginData.username,vm.loginData.password)
 					.success(function(data){
 						vm.processing=false;

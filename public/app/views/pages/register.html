@@ -1,33 +1,3 @@
-<!-- <div class="row col-sm-6 col-sm-offset-3" style="margin-top:5%;">
-   <div class="panel panel-default">
-   <div class="panel-heading">
-	<h4>Sign Up</h4>
-	</div>
-	  <div class="panel-body">
-		<form ng-submit="register.doSignUp()">
-			<div class="form-group">
-					<label>Name</label>
-					<input type="text" class="form-control" ng-model="register.user.name" required>
-			</div>
-			<div class="form-group">
-					<label>Username</label>
-					<input type="text" class="form-control" ng-model="register.user.username" required>	
-			</div>
-			<div class="form-group">
-					<label>Password</label>
-					<input type="password" class="form-control" ng-model="register.user.password" required>	
-			</div>	
-			<div class="alert alert-danger" ng-if="register.error">
-				{{register.error}}	
-			</div>
-			<button type="submit" class="btn btn-block btn-primary">
-					<span>Sign Up</span>
-			</button>
-		</form>
-		</div>
-	</div>
-</div> -->
-
     <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-login">
@@ -37,13 +7,19 @@
               <form id="register-form"  role="form" style="display: block;" ng-submit="register.doSignUp()">
                 <h2>REGISTER</h2>
                   <div class="form-group">
-                    <input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Name" value="" ng-model="register.user.name">
+                    <input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Firstname" value="" ng-model="register.user.firstname" required>
                   </div>
                   <div class="form-group">
-                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="register.user.username">
+                    <input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Lastname" value="" ng-model="register.user.lastname" required>
                   </div>
                   <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="register.user.password">
+                    <input type="email" name="name" id="name" tabindex="1" class="form-control" placeholder="Email" value="" ng-model="register.user.email" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="register.user.username" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="register.user.password" required>
                   </div>
                   <div class="form-group">
                     <div class="row">

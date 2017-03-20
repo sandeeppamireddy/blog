@@ -1,8 +1,8 @@
-  <h3>Top 5 posts</h3>
+  <h3>Top 5 post</h3>
   <div style="height: 305px">
       <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
         <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-          <img ng-src="{{slide.image}}" style="margin:auto;width:400px;">
+          <img ng-src="{{slide.image}}" style="margin:auto;width:440px;height:270px;">
           <div class="carousel-caption">
             <h4># {{slide.id + 1}}</h4>
             <a href="/posts/{{slide.post_id}}" style="color:white;"><p>{{slide.text}}</p></a>
@@ -29,11 +29,15 @@
           <div class="panel panel-default customStyle">
             <div class="panel-body">
             <a href="/posts/{{post._id}}"><h3 class="text-info">{{post.title}}</h3></a>
-            <h4><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><small>{{post.postedBy}}</small></h4>
+            <!-- <h4><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><small>{{post.postedBy}}</small></h4> -->
+                <div class="profile">
+                  <img class="photo-author img-circle" src="assets/img/default_profile_pic.png" height="35" width="35"/>
+                <span class="name-author">{{post.postedBy}}</span>
+            </div>
             <p style="float:right;"><span class="glyphicon glyphicon-time"></span> {{post.postedOn | date: yyyy/mm/dd}}</p>
             <hr />
             <a href="/posts/{{post._id}}"><img src="{{post.uploadedAt}}" alt="img" height="100" width="200" style="float:left;margin-right:10px;margin-bottom:10px;" ></a>
-            <p ng-bind-html="post.body | limitTo:250"></p>
+            <p ng-bind-html="post.body |removeHTMLTags | limitTo:250"></p>
             </div>
             <div class="panel-footer">
                 <p><span class="fa fa-comment"></span>
@@ -44,14 +48,14 @@
             </p>
             </div>
       </div>
-      </div>
-
     </div>
     </div>
     <div align="center">
     <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-md" boundary-links="true" num-pages="numPages" items-per-page="numPostsPerPage" ng-change="pageChanged()"></ul>
 </div>
   </div>
+  </div>
+
   
 
 

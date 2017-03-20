@@ -15,6 +15,7 @@ var postSchema = new Schema(
 	  	commentedBy:String,
 	  	body: String, 
 	  	date: {type :Date,default:Date.now },
+	  	commentedUserPic:String
 	  }
 	   ]
 });

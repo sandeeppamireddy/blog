@@ -4,19 +4,52 @@ var Post = require('../models/post');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
 var superSecret = config.secret;
-var Sequelize = require('sequelize');
 var multer = require('multer');
 
 
 module.exports = function(app,express){
 	var apiRouter = express.Router();
+
+	//for uploading an image
+
+	var storage = multer.diskStorage({ //multers disk storage settings
+	    destination: function (req, file, cb) {
+	        cb(null, './public/uploads/')
+	    },
+	    filename: function (req, file, cb) {
+	    	console.log('======form storage======')
+	        var datetimestamp = Date.now();
+	        //cb(null, file.originalname)
+	        cb(null,file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+	    }
+	});
+
+
+	var upload = multer({ //multer settings
+	    storage: storage
+	}).single('file');
+
+	/** API path that will upload the files */
+	apiRouter.post('/upload', function(req, res) {
+		console.log("==========upload api called=================")
+	    upload(req,res,function(err){
+	        if(err){
+	             res.json({error_code:1,err_desc:err});
+	             return;
+	        }
+	         res.json({error_code:0,err_desc:null,modifiedName:req.file.filename});
+	    })
+	});
 	
 	//route for authenticating users
 	apiRouter.post('/register',function(req,res){
 				var user =new User();
-				user.name=req.body.name;
+				user.firstname=req.body.firstname;
+				user.lastname=req.body.lastname;
+				user.email=req.body.email;
 				user.username=req.body.username;
 				user.password=req.body.password;
+				user.profilePic=req.body.profilePic;
 				user.save(function(err){
 					if(err){
 						if (err.code == 11000)
@@ -31,7 +64,7 @@ module.exports = function(app,express){
 
 		User.findOne({
 			username:req.body.username
-		}).select('_id name username password').exec(function(err,user){
+		}).select('_id firstname username password profilePic').exec(function(err,user){
 			if(err) throw err;
 
 			if(!user){
@@ -49,8 +82,9 @@ module.exports = function(app,express){
 				}else{
 					var token = jwt.sign({
 						_id:user._id,
-						name:user.name,
-						username:user.username
+						firstname:user.firstname,
+						username:user.username,
+						profilePic:user.profilePic
 						},superSecret,{
 							expiresInMinutes:1440
 						});
@@ -97,64 +131,6 @@ module.exports = function(app,express){
 	});
 
 
-/*	apiRouter.route('/users')
-		.post(function(req,res){
-				var user =new User();
-				user.name=req.body.name;
-				user.username=req.body.username;
-				user.password=req.body.password;
-				user.save(function(err){
-					if(err){
-						if (err.code == 11000)
-							return res.json({ success: false, message: 'A user with that username already exists. '});
-						else				
-							return res.send(err);
-					}		
-						res.json({message:'User Created'});
-				});	
-		})
-
-
-		.get(function(req,res){
-				console.log("calling today2");
-				User.find({},function(err, users) {
-					console.log("calling node today");
-					if (err) res.send(err);
-					res.json(users);
-			});	
-		});*/
-
-
-/*	apiRouter.route('/users/:user_id')
-		.get(function(req,res){
-			User.findById(req.params.user_id,function(err,user){
-				if(err) res.send(err);
-				res.json(user);
-			});
-		})
-
-		.put(function(req,res){
-			User.findById(req.params.user_id,function(err,user){
-				if(err) res.send(err);
-
-				if(req.body.name) user.name =req.body.name;
-				if(req.body.username) user.username=req.body.username;
-				if(req.body.password) user.password=req.body.password;
-
-				user.save(function(err){
-					if(err) res.send(err);
-					res.json({message:'User Updated'});
-				});
-			});
-		})	
-
-		.delete(function(req, res) {
-				User.remove({_id: req.params.user_id}, function(err, user) {
-					if (err) return res.send(err);
-					res.json({ message: 'Successfully deleted' });
-				});
-		});	
-*/
 	//route for getting all username
 	apiRouter.route('/users')
 		.get(function(req,res){
@@ -180,10 +156,10 @@ module.exports = function(app,express){
 				console.log(user)
 				if(req.body.name) user.name =req.body.name;
 				if(req.body.password) user.password=req.body.password;
-
+				if(req.body.profilePic) user.profilePic=req.body.profilePic;
 				user.save(function(err,user){
 					if(err) res.send(err);
-					res.json({message:'User Updated',updatedname:user.name});
+					res.json({message:'Profile Updated',profilePic:user.profilePic});
 				});
 			});
 		});	
@@ -191,7 +167,6 @@ module.exports = function(app,express){
     // route for creating posts
  	apiRouter.route('/createBlogpost')
  		.post(function(req,res){	
- 			console.log(req.body)
  			var post = new Post();
  			post.title=req.body.title;
  			post.body=req.body.body;
@@ -216,7 +191,7 @@ module.exports = function(app,express){
  	//route for fetching popular posts
  	apiRouter.route("/getPopularPosts")
  		.get(function(req,res){
- 		 	Post.find({}).sort('-views').limit(5).exec(function(err, popularPosts) {
+ 		 	Post.find({status:"Approved"}).sort('-views').limit(5).exec(function(err, popularPosts) {
 				if (err) res.send(err);
 				res.json(popularPosts);
 
@@ -335,36 +310,7 @@ module.exports = function(app,express){
 			});
 		});
 
-	var storage = multer.diskStorage({ //multers disk storage settings
-	    destination: function (req, file, cb) {
-	        cb(null, './public/uploads/')
-	    },
-	    filename: function (req, file, cb) {
-	    	console.log(file)
-	        var datetimestamp = Date.now();
-	        //cb(null, file.originalname)
-	        cb(null,file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-	    }
-	});
-
-
-	var upload = multer({ //multer settings
-	    storage: storage
-	}).single('file');
-
-	/** API path that will upload the files */
-	apiRouter.post('/upload', function(req, res) {
-		console.log("upload api called")
-	    upload(req,res,function(err){
-	        if(err){
-	             res.json({error_code:1,err_desc:err});
-	             return;
-	        }
-	        console.log(req.file.path)
-	         res.json({error_code:0,err_desc:null,modifiedName:req.file.filename});
-	    })
-	});
-
+	
 	apiRouter.get('/self',function(req,res){
 		res.send(req.decoded);
 	});

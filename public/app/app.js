@@ -2,5 +2,11 @@ angular.module('blogApp',['ngAnimate','app.routes','authService','mainCtrl','pos
 		.config(function($httpProvider){
 			$httpProvider.interceptors.push('AuthInterceptor');	
 		})
+
+		.filter('removeHTMLTags', function() {
+			return function(text) {
+				return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+			};
+		});
 		
 //'ngAnimate','app.routes','authService','mainCtrl','userCtrl','userService'		

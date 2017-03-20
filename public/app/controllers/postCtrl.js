@@ -27,7 +27,6 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 			if(($scope.post.body).trim()!=""){
 				Posts.create($scope.post)
 			      .success(function (data){
-			      	console.log(data.message)
 			      	$scope.post={};
 			      	$scope.message=data.message;
 			      		  $scope.alerts = [
@@ -48,7 +47,7 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	  	};
 	})
 
-	.controller('getAllPostsController',function($scope,Posts,Users){	
+	.controller('getAllPostsController',function($rootScope,$scope,Posts,Users){	
 		$scope.myInterval = 5000;
 		$scope.noWrapSlides = false;
 		$scope.active = 0;
@@ -134,16 +133,16 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 				});
 		$scope.postComment=function(){
 			$scope.comment.commentedBy=$rootScope.userDetails.username;
+			$scope.comment.commentedUserPic=$rootScope.userDetails.profilePic;
 			Posts.saveComment($routeParams.post_id,$scope.comment)
 				.success(function(data){
 					$scope.post.comments=data.comments;	
 					$scope.comment={};
 				});			
 		}
-		
 	})
 
-	.controller('managePostController',function($rootScope,$scope,Posts,$filter){
+	.controller('managePostController',function($rootScope,$scope,Posts,$filter,$uibModal){
 	   $scope.posts={};
 	   $scope.isAdmin=false;
 
@@ -168,12 +167,12 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	         	cellTemplate:'<div align="center" style="margin-top:5px;">'+
 	         	'<a class="btn btn-primary customBtnSize" href="/editPost/{{row.entity._id}}" ng-hide="grid.appScope.isAdmin && row.entity.postedBy!=\'admin\'" style="margin-right:10px;"><i class="fa fa-edit" style="margin-right:4px;"></i>Edit</a>'+
 	         	'<a class="btn btn-success customBtnSize" href="" ng-click="grid.appScope.approvePost(row.entity._id,row)"   ng-disabled="row.entity.status==\'Approved\'" ng-hide="!grid.appScope.isAdmin || row.entity.postedBy==\'admin\'" style="margin-right:10px;"><i class="fa fa-check-circle" style="margin-right:4px;"></i>Approve</a>'+
-	         	'<a class="btn btn-danger customBtnSize" href="" ng-click="grid.appScope.deletePost(row.entity._id,row)"><i class="fa fa-trash-o" style="margin-right:4px;"></i>Delete</a>'+
+	         	'<a class="btn btn-danger customBtnSize" href="" ng-click="grid.appScope.open(row.entity._id,row)"><i class="fa fa-trash-o" style="margin-right:4px;"></i>Delete</a>'+
 	         	'</div>'
 	         }
 	       ]};
-
-	    /*getting posts based on the user*/
+/**/
+	    /*getting posts based on the user  ng-click="grid.appScope.deletePost(row.entity._id,row)"*/
 	    //if admin
 		if($rootScope.userDetails.username=='admin'){
 			$scope.isAdmin=true;
@@ -211,6 +210,36 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 					$scope.gridOptions.data[index].status="Approved";
 				});
 		};
+
+		//modal
+		  $scope.open = function (id,row) {
+			    var modalInstance = $uibModal.open({
+			      animation: $scope.animationsEnabled,
+			      templateUrl: 'myModalContent.html',
+			      controller: 'ModalInstanceCtrl',
+			      resolve: {
+			        items: function () {
+			          return $scope.items;
+			        }
+			      }
+			    });
+
+			    modalInstance.result.then(function () {
+					$scope.deletePost(id,row);
+			    });    
+		  };
+
+	})
+
+	.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+	  $scope.ok = function () {
+	    $uibModalInstance.close('OK');
+	  };
+
+	  $scope.cancel = function () {
+	    $uibModalInstance.dismiss('cancel');
+	  };
 	})
 
 	.controller('editPostController',function($scope,$routeParams,Posts,Upload){
@@ -240,8 +269,6 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 	    };
 
 		$scope.savePost=function(){
-			
-
 			if($scope.post.body!=""){
 				Posts.update($routeParams.id,$scope.post)
 				.success(function(data){
@@ -263,5 +290,4 @@ angular.module('postCtrl',['postService','textAngular','userService','ngSanitize
 		$scope.closeAlert = function(index) {
 	    	$scope.alerts.splice(index, 1);
 	  	};
-
 	});

@@ -25,7 +25,7 @@
 		<script src="libs/ng-file-upload-shim/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
 		<script src="libs/ng-file-upload/ng-file-upload.min.js"></script>
 		<script  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   		crossorigin="anonymous"></script>
 
 		<!--controllers -->
@@ -68,7 +68,7 @@
 	</script>
 
 	</head>
-	<body ng-app="blogApp">
+	<body ng-app="blogApp" style="height:400px;">
 		 <div ng-controller="mainController as main">
 		 <nav class="navbar navbar-default navbar-fixed-top bg-primary"  ng-if="main.loggedIn">
 		  <div class="container-fluid" >
@@ -94,9 +94,6 @@
 		<div class="container">    
 			<div ng-view></div>
 		</div>
-	</body>
-	<a href="#" class="scrollToTop"><img src="assets/img/arrow_up.png"></a>
-	
-<!--  <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
- -->		
+		<a href="#" class="scrollToTop"><img src="assets/img/arrow_up.png"></a>
+	</body>	
 </html>

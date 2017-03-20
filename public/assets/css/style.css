@@ -88,8 +88,12 @@ body {
   height: 580px;
 }
 .customFont{
-	font-weight: bold;
+/*	font-weight: bold;
+*/
+color: #333333;
+font-family: Tahoma, Geneva, sans-serif;
 }
+
 .customBtnSize{
 	width: 90px !important;
 }
@@ -138,6 +142,18 @@ body {
   height: 35px;
   margin-bottom: 10px;
 }
+
+/*button*/
+.readmore {
+    margin-left: -18px; 
+    border-radius:0;  
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+}
+
+/*......*/
+
 /* For login and Register*/
 @-webkit-keyframes HeroBG {
   0% {
@@ -349,6 +365,7 @@ label {
 
 .avatar{
   height:250px;
+  width:300px;
 }
 
 
@@ -370,197 +387,4 @@ label {
     -o-transform:rotate(360deg);
 }
 
-/*.back-to-top {
-    cursor: pointer;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display:none;
-}*/
 
-
-/* login form*//*
-#loginbody {
-    background: url("/assets/img/background.jpg");
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;
-      background-size: cover;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover; 
-  color: #FFF;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-}
-
-#loginbody a {
-  transition: 0.5s all;
-  -webkit-transition: 0.5s all;
-  -moz-transition: 0.5s all;
-  -o-transition: 0.5s all;
-  -ms-transition: 0.5s all;
-  text-decoration: none;
-}
-
-#loginbody input[type="button"], input[type="submit"] {
-  transition: 0.5s all;
-  -webkit-transition: 0.5s all;
-  -moz-transition: 0.5s all;
-  -o-transition: 0.5s all;
-  -ms-transition: 0.5s all;
-}
-
-#loginbody h1 {
-  font-size: 50px;
-  font-weight: 700;
-  color: #FFF;
-  letter-spacing: 2px;
-  margin: 100px auto;
-}
-
-#loginbody .w3layoutscontaineragileits {
-  width: 25%;
-  margin: 0 auto;
-}
-
-#loginbody h2 {
-  font-size: 40px;
-  font-weight: 100;
-  margin-bottom: 30px;
-}
-
-#loginbody input[type="text"], input[type="password"] {
-  width: 84%;
-  padding: 15px 10px 15px 50px;
-  font-size: 14px;
-  background: transparent;
-  border: 2px solid #FFF;
-  border-radius: 5px;
-  outline: none;
-  margin-bottom: 20px;
-  color: #FFF;
-}
-
-#loginbody input[type="text"] {
-  background: url("/assets/img/mail.png") no-repeat 13px 11px;
-  background-size: 25px;
-}
-
-#loginbody input[type="password"] {
-  background: url("/assets/img/password.png") no-repeat 13px 11px;
-  background-size: 25px;
-}
-
-#loginbody ul.agileinfotickwthree {
-  list-style: none;
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 30px;
-  text-align: left;
-  padding-left: 10px;
-}
-
-#loginbody ul.agileinfotickwthree li input[type="checkbox"] {
-  display: none;
-}
-
-#loginbody ul.agileinfotickwthree li input[type="checkbox"]+label {
-  position: relative;
-  padding-left: 30px;
-  border: #F0F8FF;
-  display: inline-block;
-  font-size: 16px;
-  color: #EEE;
-}
-
-#loginbody ul.agileinfotickwthree li input[type="checkbox"]+label span:first-child {
-  width: 17px;
-  height: 17px;
-  display: inline-block;
-  border: 2px solid #EEE;
-  position: absolute;
-  top: -1px;
-  left: 0;
-  bottom: 4px;
-}
-
-#loginbody ul.agileinfotickwthree li input[type="checkbox"]:checked+label span:first-child:before {
-  content: "";
-  background: url(/assets/img/tick.png)no-repeat;
-  position: absolute;
-  left: 3px;
-  top: 3px;
-  font-size: 10px;
-  width: 10px;
-  height: 10px;
-}
-
-#loginbody input[type="submit"] {
-  font-size: 16px;
-  font-weight: 700;
-  padding: 15px 50px;
-  background-color: #173148;
-  color: #FFF;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  float: left;
-  cursor: pointer;
-}
-
-#loginbody input[type="submit"]:hover {
-  background-color: #FFF;
-  color: #173148;
-}
-
-#loginbody .aitssendbuttonw3ls p {
-  text-align: right;
-  padding-top: 15px;
-}
-
-#loginbody .aitssendbuttonw3ls p a {
-  color: #FFF;
-}
-
-#loginbody .aitssendbuttonw3ls p a span {
-  font-size: 18px;
-}
-
-#loginbody .aitssendbuttonw3ls p a:hover {
-  color: #FFEB3B;
-}
-
-::-webkit-input-placeholder {
-  color: #FFF;
-}
-
-::-moz-placeholder {
-  color: #FFF;
-}
-
-::-moz-placeholder {
-  color: #FFF;
-}
-
-::-ms-input-placeholder {
-  color: #FFF;
-}
-
-.w3footeragile {
-  margin: 150px 10px 20px;
-}
-
-.w3footeragile p a {
-  color: #FFF;
-}
-
-.w3footeragile p {
-  line-height: 25px;
-}
-
-.w3footeragile p a:hover {
-  color: #FFEB3B;
-}
-
-*/
