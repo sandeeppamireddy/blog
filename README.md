@@ -2,7 +2,7 @@
 ## install git 
 then run the following command:
 
-`git clone https://github.com/MadhuMuthumannan/blogg.git` in terminal
+`git clone https://github.com/sandeeppamireddy/blog.git` in terminal
 
 ## Install some packages globally
 
